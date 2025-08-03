@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dastaan-E-Mausam</title>
+    <link rel="icon" type="image/png" href="https://img.icons8.com/fluency/48/000000/partly-cloudy-day.png">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
+    <style>
+        #city-pics-left, #city-pics-right {
+            width: 220px;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 44px;
+            justify-content: space-between;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        .city-pic-fadein {
+            opacity: 0;
+            animation: fadeInPic 1s forwards;
+        }
+        @keyframes fadeInPic {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        #city-pics-left img, #city-pics-right img {
+            width: 200px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px #a100ff22;
+            margin-bottom: 0;
+        }
+        body {
+            background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+            font-family: 'Roboto', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        h2 {
+            color: #111;
+            margin-top: 48px;
+            margin-bottom: 24px;
+            font-size: 4.2rem;
+            font-family: 'Montserrat', 'Roboto', sans-serif;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 12px #fff7, 0 1px 0 #fff;
+            line-height: 1.1;
+        }
+        #weather-form {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border-radius: 32px;
+            box-shadow: 0 4px 24px #a100ff22;
+            padding: 10px 18px;
+            margin-bottom: 32px;
+            width: 100%;
+            max-width: 420px;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+        #city {
+            flex: 1;
+            padding: 14px 18px;
+            border: none;
+            border-radius: 24px 0 0 24px;
+            font-size: 1.1rem;
+            outline: none;
+            background: #f3eaff;
+            color: #a100ff;
+            min-width: 0;
+        }
+        #weather-form button {
+            padding: 0 28px;
+            border: none;
+            background: linear-gradient(90deg, #a100ff 0%, #ff6fd8 100%);
+            color: #fff;
+            font-weight: bold;
+            border-radius: 0 24px 24px 0;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-left: -2px;
+            transition: background 0.2s;
+            height: 44px;
+            min-width: 80px;
+        }
+        #weather-form button:hover {
+            background: linear-gradient(90deg, #ff6fd8 0%, #a100ff 100%);
+        }
+        #weather-result {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 2px 12px #a100ff22;
+            padding: 36px 48px;
+            width: 100%;
+            max-width: 900px;
+            min-width: 0;
+            margin-top: 12px;
+            color: #222;
+            font-size: 1.18rem;
+            text-align: center;
+            box-sizing: border-box;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        #weather-result-main {
+            flex: 2;
+            min-width: 0;
+            color: #222;
+            text-align: center;
+        }
+        #weather-result h3 {
+            color: #a100ff;
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 1.5rem;
+        }
+        #city-details {
+            width: 98vw;
+            max-width: 1600px;
+            min-width: 0;
+            margin: 18px auto 0 auto;
+            box-sizing: border-box;
+            padding: 10px 4vw 10px 4vw;
+            background: #fff8ff;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px #a100ff11;
+            font-size: 1.13rem;
+            color: #222;
+        }
+        @media (max-width: 900px) {
+            #weather-result {
+                flex-direction: column;
+                gap: 0;
+            }
+            #city-pics-left, #city-pics-right {
+                flex-direction: row;
+                align-items: flex-start;
+                justify-content: flex-start;
+                gap: 10px;
+                margin-top: 12px;
+            }
+            #city-pics-left img, #city-pics-right img {
+                width: 90px;
+                height: 60px;
+            }
+        }
+        @media (max-width: 600px) {
+            #weather-form, #weather-result, #city-details {
+                max-width: 98vw;
+                min-width: 0;
+                padding: 10px 2vw;
+            }
+            #weather-result {
+                flex-direction: column;
+                gap: 0;
+                padding: 10px 2vw;
+            }
+            #city-pics-left, #city-pics-right {
+                flex-direction: row;
+                align-items: flex-start;
+                justify-content: flex-start;
+                gap: 8px;
+                margin-top: 12px;
+            }
+            #city-pics-left img, #city-pics-right img {
+                width: 70px;
+                height: 46px;
+            }
+        }
+        @media (max-width: 400px) {
+            h2 {
+                font-size: 1.5rem;
+            }
+            #weather-result h3 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Dastaan-E-Mausam</h2>
+    <form id="weather-form">
+        <input type="text" id="city" placeholder="Enter city name" autocomplete="off">
+        <button type="submit">Search</button>
+    </form>
+    <!-- Layout: left (images), center (weather), right (images) -->
+    <div style="display:flex;flex-direction:row;justify-content:center;align-items:stretch;width:100%;max-width:1400px;margin:0 auto;min-height:420px;">
+        <div id="city-pics-left" style="margin-right:18px;"></div>
+        <div id="weather-result">
+            <div id="weather-result-main" style="text-align:center;width:100%;"></div>
+        </div>
+        <div id="city-pics-right" style="margin-left:18px;"></div>
+    </div>
+    <div id="city-details"></div>
+    <script>
+        document.getElementById('weather-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const city = document.getElementById('city').value.trim();
+            let resultDiv = document.getElementById('weather-result-main');
+            if (!resultDiv) {
+                resultDiv = document.createElement('div');
+                resultDiv.id = 'weather-result-main';
+                resultDiv.style.textAlign = 'center';
+                resultDiv.style.width = '100%';
+                document.getElementById('weather-result').appendChild(resultDiv);
+            }
+            const picsDivLeft = document.getElementById('city-pics-left');
+            const picsDivRight = document.getElementById('city-pics-right');
+            const detailsDiv = document.getElementById('city-details');
+            resultDiv.textContent = '';
+            picsDivLeft.innerHTML = '';
+            picsDivRight.innerHTML = '';
+            detailsDiv.innerHTML = '';
+            if (!city) {
+                resultDiv.textContent = 'Please enter a city name.';
+                return;
+            }
+            resultDiv.textContent = 'Loading...';
+            try {
+                // Weather API
+                const apiKey = 'd0bf3784701b405bae55bb19d5627926';
+                const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('City not found');
+                }
+                const data = await response.json();
+                resultDiv.innerHTML = `
+                    <h3 style="display:flex;align-items:center;justify-content:center;gap:10px;text-align:center;font-size:2.1rem;font-weight:900;letter-spacing:1px;">
+                        <span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;background:#111;border-radius:50%;border:2px solid #a100ff;box-shadow:0 2px 8px #a100ff22;">
+                            <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="weather icon" style="width:28px;height:28px;vertical-align:middle;background:#fff;border-radius:50%;padding:2px;">
+                        </span>
+                        <span>${data.name}, ${data.sys.country}</span>
+                    </h3>
+                    <div style="font-size:1.35rem;font-weight:700;margin:10px 0 0 0;"><span style='color:#a100ff;'>Weather:</span> ${data.weather[0].main} (${data.weather[0].description})</div>
+                    <div style="font-size:1.35rem;font-weight:700;"><span style='color:#a100ff;'>Temperature:</span> ${data.main.temp}&deg;C</div>
+                    <div style="font-size:1.18rem;font-weight:600;"><span style='color:#a100ff;'>Feels Like:</span> ${data.main.feels_like}&deg;C</div>
+                    <div style="font-size:1.18rem;font-weight:600;"><span style='color:#a100ff;'>Humidity:</span> ${data.main.humidity}%</div>
+                    <div style="font-size:1.18rem;font-weight:600;"><span style='color:#a100ff;'>Wind Speed:</span> ${data.wind.speed} m/s</div>
+                    <div id="forecast-row" style="margin:28px 0 0 0;"></div>
+                    <div id="nearby-cities-row" style="display:flex;justify-content:space-between;gap:24px;margin-top:28px;flex-wrap:wrap;"></div>
+                `;
+
+                // Fetch and display 2-day forecast
+                const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;
+                try {
+                    const forecastResp = await fetch(forecastUrl);
+                    if (forecastResp.ok) {
+                        const forecastData = await forecastResp.json();
+                        // Group by day, get next 2 days (skip today)
+                        const now = new Date();
+                        const days = {};
+                        forecastData.list.forEach(item => {
+                            const dt = new Date(item.dt * 1000);
+                            const dayKey = dt.toISOString().slice(0, 10);
+                            if (dayKey !== now.toISOString().slice(0, 10)) {
+                                if (!days[dayKey]) days[dayKey] = [];
+                                days[dayKey].push(item);
+                            }
+                        });
+                        const dayKeys = Object.keys(days).slice(0, 2);
+                        let forecastHtml = '<div style="display:flex;gap:32px;justify-content:center;flex-wrap:wrap;">';
+                        dayKeys.forEach(day => {
+                            // Get midday forecast or closest
+                            let midday = days[day].find(x => x.dt_txt.includes('12:00:00')) || days[day][0];
+                            forecastHtml += `
+                                <div style="background:#f3eaff;border-radius:14px;padding:18px 24px;min-width:160px;max-width:220px;box-shadow:0 2px 8px #a100ff11;display:flex;flex-direction:column;align-items:center;">
+                                    <div style='font-weight:700;color:#a100ff;margin-bottom:6px;'>${new Date(day).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}</div>
+                                    <span style='display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;background:#111;border-radius:50%;border:1.5px solid #a100ff;box-shadow:0 2px 8px #a100ff22;margin-bottom:6px;'>
+                                        <img src='https://openweathermap.org/img/wn/${midday.weather[0].icon}@2x.png' alt='icon' style='width:28px;height:28px;background:#fff;border-radius:50%;padding:2px;'>
+                                    </span>
+                                    <div style='font-size:1.08em;'>${midday.weather[0].main}, ${midday.main.temp}&deg;C</div>
+                                    <div style='font-size:0.98em;color:#555;'>${midday.weather[0].description}</div>
+                                </div>
+                            `;
+                        });
+                        forecastHtml += '</div>';
+                        document.getElementById('forecast-row').innerHTML = forecastHtml;
+                    }
+                } catch {}
+
+                // Fetch and display nearby cities' weather
+                const lat = data.coord.lat;
+                const lon = data.coord.lon;
+                const nearbyUrl = `https://api.openweathermap.org/data/2.5/find?lat=${lat}&lon=${lon}&cnt=5&appid=${apiKey}&units=metric`;
+                try {
+                    const nearResp = await fetch(nearbyUrl);
+                    if (nearResp.ok) {
+                        const nearData = await nearResp.json();
+                        // Filter out the main city and pick 4 nearby cities
+                        const filtered = nearData.list.filter(c => c.name !== data.name).slice(0, 4);
+                        let cardsHtml = '';
+                        filtered.forEach(city => {
+                            cardsHtml += `
+                                <div style="background:#f3eaff;border-radius:12px;padding:14px 18px;min-width:120px;max-width:180px;box-shadow:0 2px 8px #a100ff11;display:flex;flex-direction:column;align-items:center;margin-right:12px;margin-bottom:12px;">
+                                    <span style='display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;background:#111;border-radius:50%;border:1.5px solid #a100ff;box-shadow:0 2px 8px #a100ff22;'>
+                                        <img src='https://openweathermap.org/img/wn/${city.weather[0].icon}@2x.png' alt='icon' style='width:22px;height:22px;background:#fff;border-radius:50%;padding:2px;'>
+                                    </span>
+                                    <div style='font-weight:700;color:#a100ff;margin-top:4px;'>${city.name}</div>
+                                    <div style='font-size:0.98em;'>${city.weather[0].main}, ${city.main.temp}&deg;C</div>
+                                </div>
+                            `;
+                        });
+                        document.getElementById('nearby-cities-row').innerHTML = cardsHtml;
+                    }
+                } catch {}
+
+                // Unsplash API for city images (demo key, limited usage)
+                const unsplashKey = 'ufTPiW7vfZ1WhAzO7-bptXQ-x8R6sVbGjmAZ2WTQnpE';
+                const unsplashUrl = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(city)}&client_id=${unsplashKey}&per_page=4`;
+                let imgHtmlLeft = '';
+                let imgHtmlRight = '';
+                try {
+                    const imgResp = await fetch(unsplashUrl);
+                    if (imgResp.ok) {
+                        const imgData = await imgResp.json();
+                        if (imgData.results && imgData.results.length > 0) {
+                            imgHtmlLeft = '';
+                            imgHtmlRight = '';
+                            imgData.results.forEach((img, idx) => {
+                                const imgTag = `<img src="${img.urls.small}" alt="${city}" class="city-pic-fadein" style="animation-delay:${idx * 0.2}s;">`;
+                                imgHtmlLeft += imgTag;
+                                imgHtmlRight += imgTag;
+                            });
+                        } else {
+                            imgHtmlLeft = '<div>No images found.</div>';
+                            imgHtmlRight = '<div>No images found.</div>';
+                        }
+                    } else {
+                        imgHtmlLeft = '<div>Could not load images.</div>';
+                        imgHtmlRight = '<div>Could not load images.</div>';
+                    }
+                } catch {
+                    imgHtmlLeft = '<div>Could not load images.</div>';
+                    imgHtmlRight = '<div>Could not load images.</div>';
+                }
+                picsDivLeft.innerHTML = imgHtmlLeft;
+                picsDivRight.innerHTML = imgHtmlRight;
+
+                // Wikipedia API for city details
+                let summaryHtml = '';
+                async function fetchWikiSummary(query) {
+                    const wikiUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`;
+                    try {
+                        const wikiResp = await fetch(wikiUrl);
+                        if (wikiResp.ok) {
+                            const wikiData = await wikiResp.json();
+                            if (wikiData.extract) {
+                                return `<div style="font-size:1.08rem;line-height:1.6;">${wikiData.extract}</div>`;
+                            }
+                        }
+                    } catch {}
+                    return null;
+                }
+                summaryHtml = await fetchWikiSummary(city);
+                if (!summaryHtml) {
+                    summaryHtml = await fetchWikiSummary(city + ', city');
+                }
+                if (!summaryHtml) {
+                    summaryHtml = '<div>No details found for this city. Try searching for a more well-known place or check the spelling.</div>';
+                }
+                detailsDiv.innerHTML = `<h3 style="color:#a100ff;margin-bottom:10px;">About ${city}</h3>${summaryHtml}`;
+            } catch (err) {
+                resultDiv.textContent = 'Could not retrieve weather data.';
+            }
+        });
+    </script>
+</body>
+</html>
